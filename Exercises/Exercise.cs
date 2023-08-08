@@ -1,14 +1,11 @@
 ﻿namespace Mosh.StringExercises.Exercises
 {
-    public class Exercises
+    public class Exercise
     {
         Utilities utilities = new Utilities();
-        public void Exercise1()
+        public bool Exercise1(string userInput)
         {
             List<int> list = new List<int>();
-
-            string prompt = "Enter a series of numbers separated by a hyphen:";
-            string userInput = utilities.GetUserInput(prompt);
             string[] splitInput = userInput.Split('-');
             
             foreach ( string split in splitInput ) 
@@ -30,15 +27,14 @@
             }
 
             // This breaks if the user attempts to use a hyphen as a negative sign
-            Console.WriteLine(checkForContinuity ? "Consecutive" : "Not Consecutive");
+            return checkForContinuity;
         }
 
-        public void Exercise2()
+        public bool Exercise2(string userInput)
         {
             List<int> list = new List<int>();
 
-            string prompt = "Enter a series of numbers separated by a hyphen:";
-            string userInput = utilities.GetUserInput(prompt);
+            
             string[] splitInput = userInput.Split('-');
 
             foreach (string split in splitInput)
@@ -50,16 +46,15 @@
             }
 
             // This breaks if the user attempts to use a hyphen as a negative sign
-            Console.WriteLine(list.Count == list.Distinct().Count() ? "No duplicates" : "Duplicate");
+            return list.Count == list.Distinct().Count();
 
         }
 
-        public void Exercise3()
+        public bool Exercise3(string userInput)
         {
             List<int> list = new List<int>();
 
-            string prompt = "Enter a time value in the 24-hour time format(e.g. 19:00):";
-            string userInput = utilities.GetUserInput(prompt);
+            
             string[] splitInput = userInput.Split(':');
 
             foreach (string split in splitInput)
@@ -75,24 +70,40 @@
                 checkValidity = false;
             }
 
-            Console.WriteLine(checkValidity ? "Ok" : "Invalid Time");
+            return checkValidity;
         }
 
-        public void Exercise4()
+        public string Exercise4(string userInput)
         {
-            List<string> list = new List<string>();
-
-            string prompt = "Enter a few words separated by a space:";
-            string userInput = utilities.GetUserInput(prompt);
-            string[] splitInput = userInput.Split(' ');
-
+            string[] splitInput = userInput.Split(" ");
+            string pascalCaseWordDisplay = null;
             foreach (string split in splitInput)
             {
                 string lowerSplit = split.ToLower();
-                char firstLetter = Char.Parse(lowerSplit.Substring(0, 1).ToUpper());
-                string pascalCaseWord = lowerSplit.Replace(lowerSplit[0], firstLetter);
-                Console.Write(pascalCaseWord);
+                string firstLetter = lowerSplit.Substring(0, 1).ToUpper();
+                lowerSplit = lowerSplit.Remove(0, 1);
+                string pascalCaseWord = lowerSplit.Insert(0, firstLetter);
+                pascalCaseWordDisplay += pascalCaseWord;
             }
+
+            return pascalCaseWordDisplay;
+        }
+
+        public string Exercise5(string userInput)
+        {
+            char[] vowels = new char[6] { 'a', 'e', 'i', 'o', 'u', 'y' };
+            int count = 0;
+            for (int i = 0; i < userInput.Length; i++)
+            {
+                foreach (char c in vowels)
+                {
+                    if (c == userInput[i])
+                    {
+                        count++;
+                    }
+                }
+            }
+            return $"There {(count > 1 ? "are " + count + " vowels" : count == 0 ? "are no vowels" : "is 1 vowel")} in the word you entered.";
         }
     }
 }

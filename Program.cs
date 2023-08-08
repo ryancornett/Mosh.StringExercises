@@ -1,12 +1,8 @@
 ﻿
 using Mosh.StringExercises.Exercises;
-using System.Text;
-using System.Xml.Serialization;
-
-Exercises exercises = new Exercises();
-// exercises.Exercise1();
 
 Utilities utilities = new Utilities();
+Exercise exercise = new Exercise();
 
 void ShowMenu()
 {
@@ -16,7 +12,7 @@ void ShowMenu()
 
     string prompt = "Please make a menu selection:";
     string userSelection = utilities.GetUserInput(prompt);
-    int parsedUserSelection = 0;
+    int parsedUserSelection = -1;
     try
     {
         parsedUserSelection = Int32.Parse(userSelection);
@@ -27,34 +23,59 @@ void ShowMenu()
         ShowMenu();
     }
 
-    switch (parsedUserSelection)
+    while (parsedUserSelection != 6)
     {
-        case 0:
-            Environment.Exit(0); break;
+        switch (parsedUserSelection)
+        {
+            case 0:
+                Environment.Exit(0); break;
 
-        case 1:
-            exercises.Exercise1(); break;
+            case 1:
+                // TODO: Input validation on all exercises
+                string exercisePrompt1 = "Enter a series of numbers separated by a hyphen:";
+                string userInput1 = utilities.GetUserInput(exercisePrompt1);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(exercise.Exercise1(userInput1) ? "Consecutive" : "Not Consecutive");
+                break;
 
-        case 2:
-            exercises.Exercise2();
-            break;
+            case 2:
+                string exercisePrompt2 = "Enter a series of numbers separated by a hyphen:";
+                string userInput2 = utilities.GetUserInput(exercisePrompt2);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(exercise.Exercise2(userInput2) ? "No duplicates" : "Duplicate(s)");
+                break;
 
-        case 3:
-            exercises.Exercise3();
-            break;
+            case 3:
+                string exercisePrompt3 = "Enter a time value in the 24-hour time format(e.g. 19:00):";
+                string userInput3 = utilities.GetUserInput(exercisePrompt3);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(exercise.Exercise3(userInput3) ? "Ok" : "Invalid Time");
+                break;
 
-        case 4:
-            exercises.Exercise4();
-            break;
+            case 4:
+                string exercisePrompt4 = "Enter a few words separated by a space:";
+                string userInput4 = utilities.GetUserInput(exercisePrompt4);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(exercise.Exercise4(userInput4));
+                break;
 
-        case 5:
-            throw new NotImplementedException();
-            // exercises.Exercise5();
-            break;
+            case 5:
+                string exercisePrompt5 = "Enter an English word to see how many vowels it has:";
+                string userInput5 = utilities.GetUserInput(exercisePrompt5);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(exercise.Exercise5(userInput5));
+                break;
 
-        default:
-            utilities.InvalidEntry();
-            break;
+            default:
+                utilities.InvalidEntry();
+                break;
+        }
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("Press ENTER to continue.");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.ReadLine();
+        Console.Clear();
+        ShowMenu();
     }
 }
 
