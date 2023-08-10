@@ -2,7 +2,6 @@
 {
     public class Exercise
     {
-        Utilities utilities = new Utilities();
         public bool Exercise1(string userInput)
         {
             List<int> list = new List<int>();
